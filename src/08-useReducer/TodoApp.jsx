@@ -3,25 +3,29 @@ import { useReducer } from 'react'
 import { todoReducer } from './todoReducer'
 import { TodoList } from './TodoList'
 import { TodoForm } from './TodoForm'
+import { use } from 'react'
+import { useEffect } from 'react'
 
-const initialState = [
-  {
-    id: new Date().getTime(),
-    description: 'Recolectar piedras del infinito',
-    done: false,
-  },
-  {
-    id: new Date().getTime() + 1000,
-    description: 'Juntar las 7 esferas del dragón',
-    done: false,
-  },
-]
+const init = () => {
+  return JSON.parse(localStorage.getItem('todos')) || []
+} 
+
+const initialState = []
 
 export const TodoApp = () => {
-  const [todos, dispacthTodo] = useReducer(todoReducer, initialState)
+  const [todos, dispacthTodo] = useReducer(todoReducer, initialState, init)
+
+  
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const handlenewTodo = (newTodo) => {
-    console.log('newTodo', newTodo)
+    dispacthTodo({
+      type: 'add',
+      payload: newTodo,
+    })
+
   }
 
   return (
