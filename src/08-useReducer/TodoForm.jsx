@@ -29,7 +29,7 @@ export const TodoForm = ({ onNewTodo }) => {
       <input
         type="text"
         name="description"
-        placeholder="Que hay que hacer?"
+      placeholder="Que hay que hacer?"
         autoComplete="off"
         className="form-control mt-3"
         value={description}

@@ -8,14 +8,13 @@ import { useEffect } from 'react'
 
 const init = () => {
   return JSON.parse(localStorage.getItem('todos')) || []
-} 
+}
 
 const initialState = []
 
 export const TodoApp = () => {
   const [todos, dispacthTodo] = useReducer(todoReducer, initialState, init)
 
-  
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
@@ -25,7 +24,20 @@ export const TodoApp = () => {
       type: 'add',
       payload: newTodo,
     })
+  }
 
+  const handleDelete = (todoId) => {
+    dispacthTodo({
+      type: 'delete',
+      payload: todoId,
+    })
+  }
+
+  const handleToggle = (todoId) => {
+    dispacthTodo({
+      type: 'toggle',
+      payload: todoId,
+    })
   }
 
   return (
@@ -39,7 +51,11 @@ export const TodoApp = () => {
       <div className="row">
         {/* Lista de Todos */}
         <div className="col-7">
-          <TodoList todos={todos} />
+          <TodoList
+            todos={todos}
+            onDeleteTodo={handleDelete}
+            onToggleTodo={handleToggle}
+          />
         </div>
 
         {/* Formulario para agregar nuevos Todos */}
