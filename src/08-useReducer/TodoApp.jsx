@@ -5,45 +5,24 @@ import { TodoList } from './TodoList'
 import { TodoForm } from './TodoForm'
 import { use } from 'react'
 import { useEffect } from 'react'
-
-const init = () => {
-  return JSON.parse(localStorage.getItem('todos')) || []
-}
-
-const initialState = []
+import { useTodos } from '../hooks/useTodos'
 
 export const TodoApp = () => {
-  const [todos, dispacthTodo] = useReducer(todoReducer, initialState, init)
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos])
-
-  const handlenewTodo = (newTodo) => {
-    dispacthTodo({
-      type: 'add',
-      payload: newTodo,
-    })
-  }
-
-  const handleDelete = (todoId) => {
-    dispacthTodo({
-      type: 'delete',
-      payload: todoId,
-    })
-  }
-
-  const handleToggle = (todoId) => {
-    dispacthTodo({
-      type: 'toggle',
-      payload: todoId,
-    })
-  }
+  const {
+    handleDelete,
+    handleToggle,
+    handlenewTodo,
+    todos,
+    todosCompleted,
+    todosCounts,
+  } = useTodos()
 
   return (
     <>
       {/* Titulo de la APP */}
       <h1>TodoApp</h1>
+      <h2>Total: {todosCounts}</h2>
+      <h2>Completed: {todosCompleted}</h2>
       <hr />
 
       {/* Contenedor de la App tipo row */}

@@ -12,9 +12,11 @@ import { Layout } from './05-UseLayoutEffect/Layout.jsx'
 import { Memorize } from './06-UseMemo/Memorize.jsx'
 import './08-useReducer/intro-reducer.js'
 import { TodoApp } from './08-useReducer/TodoApp.jsx'
+import { MainApp } from './09-useContext/MainApp.jsx'
+import { BrowserRouter } from 'react-router'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <TodoApp />
-  </StrictMode>
+  <BrowserRouter>
+    <MainApp />
+  </BrowserRouter>
 )
