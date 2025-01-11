@@ -4,10 +4,12 @@ import { HomePage } from './HomePage'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Navbar } from './Navbar'
 import { LoginPage } from './LoginPage'
+import { UserProvider } from './Context/UserProvider'
+
 
 export const MainApp = () => {
   return (
-    <>
+    <UserProvider>
       <div>MainApp</div>
       <Navbar />
 
@@ -17,6 +19,6 @@ export const MainApp = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+    </UserProvider>
   )
 }
